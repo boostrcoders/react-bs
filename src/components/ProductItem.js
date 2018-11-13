@@ -7,14 +7,17 @@ class ProductItem extends Component {
       ? (alert("Please Input Name"), this.nameInput.focus())
       : this.priceInput.value === ""
       ? (alert("Please Input Price"), this.priceInput.focus())
-      : (this.props.editSubmit(this.nameInput.value, this.priceInput.value),
-        console.log("test1"));
+      : this.props.editSubmit(
+          this.nameInput.value,
+          this.priceInput.value,
+          this.props.id
+        );
   };
   render() {
     return (
       <div>
         {this.props.isEdit[0] && this.props.isEdit[1] === this.props.name ? (
-          <div key={this.props.name}>
+          <div id={this.props.id}>
             <form onSubmit={this.handleKeyPressEdit.bind(this)}>
               <input
                 placeholder="Name"

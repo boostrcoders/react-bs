@@ -28,6 +28,7 @@ class AddProduct extends Component {
           ref={priceInput => (this.priceInput = priceInput)}
         />
         <button>Add</button>
+        <p />
         <hr />
       </form>
     );

@@ -3,19 +3,21 @@ import ProductItem from "./components/ProductItem";
 import AddProduct from "./components/AddProduct";
 import "./App.css";
 
-const products = [
-  {
-    name: "iPad",
-    price: 200
-  },
-  {
-    name: "iPhone",
-    price: 650
-  }
-];
-
-localStorage.setItem("products", JSON.stringify(products));
-
+//CHECK if Products is exist in Local Storage
+if ("products" in localStorage) {
+} else {
+  const products = [
+    {
+      name: "iPad",
+      price: 200
+    },
+    {
+      name: "iPhone",
+      price: 650
+    }
+  ];
+  localStorage.setItem("products", JSON.stringify(products));
+}
 class App extends Component {
   state = {
     products: JSON.parse(localStorage.getItem("products")),
@@ -31,26 +33,32 @@ class App extends Component {
     return this.state.products;
   }
 
+  //ADD Products
   addProduct(name, price) {
     const products = this.getProducts();
-    products.push({ name, price });
+    let id = products.length + 1;
+    products.push({ id, name, price });
     this.setState({ products });
+    localStorage.setItem("products", JSON.stringify(products));
   }
 
+  //DELETE Products
   deleteProduct(index) {
     let productsArr = this.getProducts();
     productsArr.splice(index, 1);
     this.setState({ products: productsArr });
     localStorage.setItem("products", JSON.stringify(productsArr));
   }
+
+  //EDIT Products
   editProduct(name) {
     this.setState({ isEdit: [true, name] });
   }
-  onEditSubmit(name, price) {
+  onEditSubmit(name, price, id) {
     let products = this.getProducts();
 
-    products = products.map(product => {
-      if (product.name === name) {
+    products = products.map((product, key) => {
+      if (key === id) {
         product.name = name;
         product.price = price;
       }
@@ -58,7 +66,7 @@ class App extends Component {
     });
 
     this.setState({ products, isEdit: [false, 0] });
-    console.log(products);
+    localStorage.setItem("products", JSON.stringify(products));
   }
 
   render() {
@@ -66,11 +74,13 @@ class App extends Component {
       <div className="App">
         <h1>Products Manager</h1>
         <AddProduct onAdd={this.addProduct.bind(this)} />
+
         {this.state.products.map((product, key) => {
           return (
             <ProductItem
               isEdit={this.state.isEdit}
               key={key}
+              id={key}
               name={product.name}
               price={product.price}
               onEdit={() => this.editProduct(product.name)}
