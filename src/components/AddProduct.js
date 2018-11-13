@@ -29,7 +29,6 @@ class AddProduct extends Component {
         />
         <button>Add</button>
         <hr />
-        {}
       </form>
     );
   }

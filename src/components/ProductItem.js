@@ -1,39 +1,51 @@
-import React from "react";
+import React, { Component } from "react";
 
-const ProductItem = props => {
-  return (
-    <div>
-      {props.isEdit ? (
-        <div>
-          <form onSubmit={this.handleKeyPress.bind(this)}>
-            <h3>Add Product</h3>
-            <input
-              placeholder="Name"
-              ref={nameInput => {
-                this.nameInput = nameInput;
-              }}
-            />
-            <input
-              placeholder="Price"
-              ref={priceInput => (this.priceInput = priceInput)}
-            />
-            <button>Add</button>
-            <hr />
-            {}
-          </form>
-        </div>
-      ) : (
-        <div key={props.name}>
-          <span>{props.name}</span> {" | "}
-          <span>{props.price}</span>
-          {" | "}
-          <button onClick={props.onEdit}>Edit</button>
-          {" | "}
-          <button onClick={props.onDelete}>Delete</button>
-        </div>
-      )}
-    </div>
-  );
-};
+class ProductItem extends Component {
+  handleKeyPressEdit = event => {
+    event.preventDefault();
+    return this.nameInput.value === ""
+      ? (alert("Please Input Name"), this.nameInput.focus())
+      : this.priceInput.value === ""
+      ? (alert("Please Input Price"), this.priceInput.focus())
+      : (this.props.editSubmit(this.nameInput.value, this.priceInput.value),
+        console.log("test1"));
+  };
+  render() {
+    return (
+      <div>
+        {this.props.isEdit[0] && this.props.isEdit[1] === this.props.name ? (
+          <div key={this.props.name}>
+            <form onSubmit={this.handleKeyPressEdit.bind(this)}>
+              <input
+                placeholder="Name"
+                ref={nameInput => {
+                  this.nameInput = nameInput;
+                }}
+                defaultValue={this.props.name}
+              />
+              <input
+                placeholder="Price"
+                ref={priceInput => (this.priceInput = priceInput)}
+                defaultValue={this.props.price}
+              />
+              <button>Save</button>
+              <hr />
+              {}
+            </form>
+          </div>
+        ) : (
+          <div key={this.props.name}>
+            <span>{this.props.name}</span> {" | "}
+            <span>{this.props.price}</span>
+            {" | "}
+            <button onClick={this.props.onEdit}>Edit</button>
+            {" | "}
+            <button onClick={this.props.onDelete}>Delete</button>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 
 export default ProductItem;

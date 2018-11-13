@@ -19,7 +19,7 @@ localStorage.setItem("products", JSON.stringify(products));
 class App extends Component {
   state = {
     products: JSON.parse(localStorage.getItem("products")),
-    isEdit: false
+    isEdit: [false, 0]
   };
 
   componentWillMount() {
@@ -43,7 +43,23 @@ class App extends Component {
     this.setState({ products: productsArr });
     localStorage.setItem("products", JSON.stringify(productsArr));
   }
-  editProduct() {}
+  editProduct(name) {
+    this.setState({ isEdit: [true, name] });
+  }
+  onEditSubmit(name, price) {
+    let products = this.getProducts();
+
+    products = products.map(product => {
+      if (product.name === name) {
+        product.name = name;
+        product.price = price;
+      }
+      return product;
+    });
+
+    this.setState({ products, isEdit: [false, 0] });
+    console.log(products);
+  }
 
   render() {
     return (
@@ -57,8 +73,9 @@ class App extends Component {
               key={key}
               name={product.name}
               price={product.price}
-              onEdit={() => this.editProduct(key)}
+              onEdit={() => this.editProduct(product.name)}
               onDelete={() => this.deleteProduct(key)}
+              editSubmit={this.onEditSubmit.bind(this)}
             />
           );
         })}
