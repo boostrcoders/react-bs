@@ -1,3 +1,12 @@
-.App {
+*,
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.products-container {
   text-align: center;
+  margin: 0 20px;
 }

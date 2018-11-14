@@ -1,0 +1,68 @@
+THE AUTOMATION TOOL:  
+- uses Node for core processing
+- npm to manage project dependencies
+- git for managing source code / versioning 
+- vorpal for creating shell prompts and commands (in future versions) 
+- Will look into ways/tools to make installation easier: 
+    - considering using a container system like docker-jenkins  
+
+INSTALLING NODE: (Mandatory)
+- Simply download installer at https://nodejs.org/en/download/
+    - Use the LTS version (it is the most stable)
+    - I'm not using bleeding edge node features so current version won't be necessary 
+        - Any V5 or higher will work. 
+- This will install npm onto the machine 
+
+INSTALLING GIT SCM: (Optional)
+- Download installer here
+    - https://git-scm.com/download/win
+- Use default options 
+    - Install git bash if you want to use bash cli commands 
+
+AFTER INSTALLING GIT/NODE/NPM...
+    IF USING WINDOWS CMD PROMPT: 
+    - Make sure to add any binaries to windows path environment variables. 
+        Right click Computer --> Advanced System settings --> Advanced (tab) --> Environment Variables 
+    - ADD THE FOLLOWING PATHS (if they aren't already added): 
+        - C:\Program Files\nodejs\
+        - C:\Program Files\Git\cmd 
+        - C:\Users\<Username>\AppData\Local\Programs\Microsoft VS Code\bin
+
+    IF USING GIT BASH: 
+    - Follow steps above... 
+    - You can add bash Configurations to the .bashrc file of your home directory 
+        - Home directory === User directory 
+    - Switch your integrated terminal setting to use git bash: 
+    - ADD THIS LINE TO YOUR CONFIG: 
+        "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
+	Or if your files are in a different location:
+	"terminal.integrated.shell.windows": "C:\\Users\\<userName>\\AppData\\Local\\Programs\\Git\\bin\\bash.exe"
+
+DOWNLOADING THE SOURCE CODE (AUTOMATION TOOL): 
+- To download the source code make sure you have git installed. 
+- Use git Source Code Manager to download/clone the files for the application to your local machine
+
+    IN YOUR TERMINAL / COMMAND LINE: 
+    1) Go to the directory where you wish to download to 
+    2) Type in: git clone https://github.com/bant-webmd/automation-tool.git
+        - This will "clone" the git repository to your current directory  
+
+UPDATING THE TOOL: 
+- Over time I will be adding new features and fixing bugs 
+- To receive these updates open your command-line / terminal and: 
+    1) Navigate to the root directory of the automation-tool (where package.json is)
+	- Use "cd" command to change directory inside of the terminal/command line 
+		- *** TIP you can type the first few letters of the directory and by hitting tab it will autocomplete 
+	- Use "ls" to list contents of current directory
+	- EXAMPLE COMMAND: cd automation-tool
+		- This will go into the root directory of the automation-tool 
+    2) Type in: 
+	- To reset local changes 
+		- type: git reset --hard
+	- Pull in any updates hosted on github. 
+		- type: git pull origin master 		
+	- Install missing dependencies (Use this if getting "no such module" error):
+		- type: npm install
+	- run module tests - generates output files
+		- type: npm run test 
+

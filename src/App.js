@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import ProductItem from "./components/ProductItem";
-import AddProduct from "./components/AddProduct";
+import ProductItem from "./components/ProductItem/ProductItem";
+import AddProduct from "./components/AddProduct/AddProduct";
 import "./App.css";
 
 //CHECK if Products is exist in Local Storage
@@ -21,7 +21,7 @@ if ("products" in localStorage) {
 class App extends Component {
   state = {
     products: JSON.parse(localStorage.getItem("products")),
-    isEdit: [false, 0]
+    isEdit: [true, 1]
   };
 
   componentWillMount() {
@@ -71,24 +71,25 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>Products Manager</h1>
+      <div>
         <AddProduct onAdd={this.addProduct.bind(this)} />
 
-        {this.state.products.map((product, key) => {
-          return (
-            <ProductItem
-              isEdit={this.state.isEdit}
-              key={key}
-              id={key}
-              name={product.name}
-              price={product.price}
-              onEdit={() => this.editProduct(product.name)}
-              onDelete={() => this.deleteProduct(key)}
-              editSubmit={this.onEditSubmit.bind(this)}
-            />
-          );
-        })}
+        <div className="products-container">
+          {this.state.products.map((product, key) => {
+            return (
+              <ProductItem
+                isEdit={this.state.isEdit}
+                key={key}
+                id={key}
+                name={product.name}
+                price={product.price}
+                onEdit={() => this.editProduct(product.name)}
+                onDelete={() => this.deleteProduct(key)}
+                editSubmit={this.onEditSubmit.bind(this)}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }
