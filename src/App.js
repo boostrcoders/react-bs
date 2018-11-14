@@ -74,7 +74,7 @@ class App extends Component {
       <div>
         <AddProduct onAdd={this.addProduct.bind(this)} />
 
-        <div className="products-container">
+        <div className="products-container row">
           {this.state.products.map((product, key) => {
             return (
               <ProductItem

@@ -32,6 +32,7 @@
   padding: 20px 10px 20px 10px;
   background-color: #f1f1f1;
   max-width: 650px;
+  width: 100%;
 
   clear: both;
 }
@@ -43,7 +44,9 @@
   font-size: 16px;
   text-align: center;
   padding: 5px;
+  margin: 5px;
 }
 .add-form-btn {
   text-align: right;
+  margin: 5px;
 }

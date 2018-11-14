@@ -26,7 +26,7 @@ class AddProduct extends Component {
         {/* FORM FOR ADDING NEW PRODUCT */}
         <div className="add-form row">
           <form onSubmit={this.handleKeyPress.bind(this)}>
-            <div className="col-sm-5 col-xs-5  add-form-input">
+            <div className="col-sm-5 col-xs-12  add-form-input">
               <input
                 className="col-xs-12"
                 placeholder="Name"
@@ -36,7 +36,7 @@ class AddProduct extends Component {
               />
             </div>
 
-            <div className="col-sm-5 col-xs-5 add-form-input">
+            <div className="col-sm-5 col-xs-12 add-form-input">
               <input
                 className="col-xs-12"
                 placeholder="Price"
@@ -44,7 +44,7 @@ class AddProduct extends Component {
               />
             </div>
 
-            <div className="col-sm-2 col-xs-2 add-form-btn">
+            <div className="col-sm-2 col-xs-12 add-form-btn">
               <button className="btn btn-success btn-block">Save</button>
             </div>
           </form>

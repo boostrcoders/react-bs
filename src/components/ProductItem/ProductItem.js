@@ -16,7 +16,7 @@ class ProductItem extends Component {
   };
   render() {
     return (
-      <div className="item-card">
+      <div className="item-card col-lg-3 col-sm-4 col-xs-12">
         {this.props.isEdit[0] && this.props.isEdit[1] === this.props.name ? (
           <div className="text-center" id={this.props.id}>
             <form onSubmit={this.handleKeyPressEdit.bind(this)}>
