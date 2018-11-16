@@ -2,51 +2,23 @@
   margin-bottom: 30px;
   padding: 20px;
   text-align: center;
-}
-
-.add-btn {
-  float: right;
-  position: absolute;
-  top: 15px;
-  right: 10px;
-  display: none;
-}
-.add-btn a {
-  border-radius: 25em;
-  height: 60px;
-  width: 60px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0);
-  line-height: 45px;
-  text-align: center;
-  padding-left: 17px;
-}
-.add-btn a span {
-  font-size: 1.5em;
+  /* background-color: rgba(33, 33, 33, 0.6); */
 }
 
 .add-form {
   margin: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 20px 10px 20px 10px;
+  padding: 20px 20px 15px 20px;
   background-color: #f1f1f1;
   max-width: 650px;
   width: 100%;
+}
 
-  clear: both;
-}
-.add-form-input {
-  text-align: center;
-}
 .add-form-input input {
-  border: 1px solid #cccccc;
   font-size: 16px;
   text-align: center;
-  padding: 5px;
-  margin: 5px;
+  margin-bottom: 5px;
 }
 .add-form-btn {
   text-align: right;
-  margin: 5px;
 }

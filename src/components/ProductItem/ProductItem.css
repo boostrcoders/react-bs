@@ -1,35 +1,68 @@
 .item-card {
   font-size: 20px;
   color: #333333;
-  height: 152px;
-  padding: 20px;
-  margin-bottom: 30px;
+  padding: 10px 10px 10px 10px;
   text-align: center;
   font-family: arial;
-  float: left;
+  /* float: left; */
+
   box-sizing: border-box;
+  height: 180px;
+}
+.item-card-edit {
+  padding: 10px 0px 0px 0px;
+  background-color: #f1f1f1;
+}
+.item-card-inner,
+.item-card-edit {
+  background-color: #f1f1f1;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
 .item-name {
   font-size: 26px;
   padding: 10px;
-  background-color: #f1f1f1;
 }
 .price {
   color: grey;
   font-size: 22px;
   padding: 10px;
-  background-color: #f1f1f1;
 }
 .item-btn {
   border-top: 1px solid #cccccc;
   padding: 10px 10px 10px 10px;
-  background-color: #f1f1f1;
 }
 
 .item-name-input input {
   text-align: center;
-  padding: 5px;
+  padding: 6px;
   max-width: 240px;
   margin-bottom: 10px;
-  font-size: 16px;
+  font-size: 18px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+.item-card-edit .item-btn {
+  padding: 10px 10px 10px 10px;
+}
+.btn-add-cart {
+  float: left;
+  font-size: 24px;
+  padding: 0px 10px 0px 10px;
+}
+
+.btn-edit-cart,
+.btn-delete-cart {
+  padding: 5px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.btn-edit-cart:hover {
+  color: rgb(0, 162, 255);
+}
+.btn-delete-cart:hover {
+  color: rgb(223, 41, 41);
+}
+.cart-notif {
+  background-color: #5bc0de;
 }

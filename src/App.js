@@ -1,53 +1,83 @@
 import React, { Component } from "react";
-import ProductItem from "./components/ProductItem/ProductItem";
+import HeaderNav from "./components/HeaderNav/HeaderNav";
 import AddProduct from "./components/AddProduct/AddProduct";
+import ProductItem from "./components/ProductItem/ProductItem";
+
 import "./App.css";
 
 //CHECK if Products is exist in Local Storage
-if ("products" in localStorage) {
+if ("records" in localStorage) {
+  const records = {
+    products: [
+      {
+        name: "iPad",
+        price: 200,
+        cart: false
+      },
+      {
+        name: "iPhone",
+        price: 650,
+        cart: false
+      }
+    ],
+    cartItems: 0
+  };
+  localStorage.setItem("records", JSON.stringify(records));
 } else {
-  const products = [
-    {
-      name: "iPad",
-      price: 200
-    },
-    {
-      name: "iPhone",
-      price: 650
-    }
-  ];
-  localStorage.setItem("products", JSON.stringify(products));
+  const records = {
+    products: [
+      {
+        name: "iPad",
+        price: 200,
+        cart: false
+      },
+      {
+        name: "iPhone",
+        price: 650,
+        cart: false
+      }
+    ],
+    cartItems: 1
+  };
+  localStorage.setItem("records", JSON.stringify(records));
 }
 class App extends Component {
   state = {
-    products: JSON.parse(localStorage.getItem("products")),
-    isEdit: [true, 1]
+    records: JSON.parse(localStorage.getItem("records")),
+    isEdit: [true, 1],
+    isAdd: false
   };
 
   componentWillMount() {
-    const products = this.getProducts();
-    this.setState({ products });
+    const records = this.getRecords();
+    this.setState({ records });
+    console.log(this.state.records.products);
   }
 
-  getProducts() {
-    return this.state.products;
+  getRecords() {
+    console.log(this.state);
+    return this.state.records;
+  }
+  //SHOW ADD FORM
+  showAddForm() {
+    this.setState({ isAdd: !this.state.isAdd });
   }
 
   //ADD Products
   addProduct(name, price) {
-    const products = this.getProducts();
-    let id = products.length + 1;
-    products.push({ id, name, price });
-    this.setState({ products });
-    localStorage.setItem("products", JSON.stringify(products));
+    const records = this.getRecords();
+    let id = records.products.length + 1;
+    records.products.push({ id, name, price });
+    this.setState({ records });
+    localStorage.setItem("products", JSON.stringify(records));
   }
 
   //DELETE Products
   deleteProduct(index) {
-    let productsArr = this.getProducts();
-    productsArr.splice(index, 1);
-    this.setState({ products: productsArr });
-    localStorage.setItem("products", JSON.stringify(productsArr));
+    let records = this.getRecords();
+    records.products.splice(index, 1);
+    this.setState({ records: records });
+    localStorage.setItem("products", JSON.stringify(records));
   }
 
   //EDIT Products
@@ -55,9 +85,9 @@ class App extends Component {
     this.setState({ isEdit: [true, name] });
   }
   onEditSubmit(name, price, id) {
-    let products = this.getProducts();
+    let records = this.getRecords();
 
-    products = products.map((product, key) => {
+    records = records.products.map((product, key) => {
       if (key === id) {
         product.name = name;
         product.price = price;
@@ -65,17 +95,38 @@ class App extends Component {
       return product;
     });
 
-    this.setState({ products, isEdit: [false, 0] });
-    localStorage.setItem("products", JSON.stringify(products));
+    this.setState({ records, isEdit: [false, 0] });
+    localStorage.setItem("products", JSON.stringify(records));
+  }
+
+  //UPDATE CART NOTIFICATION
+  updateCartNotif(id) {
+    let records = this.getRecords();
+    records = records.products.map((product, key) => {
+      if (key === id) {
+        product.cart = true;
+      }
+      return product;
+    });
+    records.cartItems += 1;
+    this.setState({ records });
+    localStorage.setItem("products", JSON.stringify(records));
+    console.log(records);
   }
 
   render() {
     return (
       <div>
-        <AddProduct onAdd={this.addProduct.bind(this)} />
-
-        <div className="products-container row">
-          {this.state.products.map((product, key) => {
+        <HeaderNav
+          showAddForm={this.showAddForm.bind(this)}
+          cartNotif={this.state.records.cartItems}
+        />
+        <AddProduct
+          onAdd={this.addProduct.bind(this)}
+          isAdd={this.state.isAdd}
+        />
+        <div className="products-container">
+          {this.state.records.products.map((product, key) => {
             return (
               <ProductItem
                 isEdit={this.state.isEdit}
@@ -83,9 +134,14 @@ class App extends Component {
                 id={key}
                 name={product.name}
                 price={product.price}
+                cart={product.cart}
                 onEdit={() => this.editProduct(product.name)}
                 onDelete={() => this.deleteProduct(key)}
                 editSubmit={this.onEditSubmit.bind(this)}
+                addCart={
+                  (this.updateCartNotif.bind(this),
+                  () => this.updateCartNotif(key))
+                }
               />
             );
           })}

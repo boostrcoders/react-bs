@@ -16,9 +16,9 @@ class ProductItem extends Component {
   };
   render() {
     return (
-      <div className="item-card col-lg-3 col-sm-4 col-xs-12">
+      <div className="item-card col-lg-3 col-md-4 col-sm-6 col-xs-12">
         {this.props.isEdit[0] && this.props.isEdit[1] === this.props.name ? (
-          <div className="text-center" id={this.props.id}>
+          <div className="text-center item-card-edit" id={this.props.id}>
             <form onSubmit={this.handleKeyPressEdit.bind(this)}>
               <div className="item-name-input">
                 <input
@@ -39,13 +39,17 @@ class ProductItem extends Component {
               </div>
 
               <div className="text-right item-btn">
-                <button className="btn btn-success">Save</button>
+                <button
+                  title="Save"
+                  className="btn btn-success btn-save-cart text-success"
+                >
+                  <i className="far fa-save" /> Save
+                </button>
               </div>
-              {}
             </form>
           </div>
-        ) : (
-          <div className="text-center" key={this.props.name}>
+        ) : !this.props.cart ? (
+          <div className="text-center item-card-inner" key={this.props.name}>
             <div className="item-name">
               <span>{this.props.name}</span>
             </div>
@@ -53,17 +57,31 @@ class ProductItem extends Component {
             <div className="price">
               <span>{this.props.price}</span>
             </div>
-
             <div className="text-right item-btn">
-              <button className="btn btn-primary" onClick={this.props.onEdit}>
-                <span className="glyphicon glyphicon-pencil" />
-              </button>{" "}
-              <button className="btn btn-danger" onClick={this.props.onDelete}>
-                <span className="glyphicon glyphicon-trash" />
+              <button
+                onClick={this.props.addCart}
+                title="Add to Cart"
+                className="btn btn-info btn-add-cart"
+              >
+                <i className="fa fa-cart-plus" />
+              </button>
+              <button
+                title="Edit"
+                className="btn text-primary btn-edit-cart"
+                onClick={this.props.onEdit}
+              >
+                <i className="far fa-edit" />
+              </button>
+              <button
+                title="Delete"
+                className="btn text-danger btn-delete-cart"
+                onClick={this.props.onDelete}
+              >
+                <i className="fas fa-trash-alt" />
               </button>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     );
   }
