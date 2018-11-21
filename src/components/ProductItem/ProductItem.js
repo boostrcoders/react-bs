@@ -95,15 +95,8 @@ class ProductItem extends Component {
             <div className="col-sm-4 col-xs-12 text-center cart-item-name">
               {this.props.name}
             </div>
-            <div className="col-sm-3 col-xs-5 text-center cart-item-details">
-              <span className="text-default">
-                <i className="fas fa-dollar-sign">
-                  {" "}
-                  {this.props.price * this.props.cart[1]}
-                </i>
-              </span>
-            </div>
-            <div className="col-sm-4 col-xs-5 text-left cart-item-details">
+
+            <div className="col-sm-4 col-xs-5 text-center cart-item-details">
               <button
                 className="btn btn-sm btn-delete-cart"
                 id="minus-btn"
@@ -122,6 +115,14 @@ class ProductItem extends Component {
               >
                 <i className="fa fa-plus" />
               </button>
+            </div>
+            <div className="col-sm-3 col-xs-5 text-left cart-item-details">
+              <span className="text-default">
+                <i className="fas fa-dollar-sign">
+                  {" "}
+                  {this.props.price * this.props.cart[1]}
+                </i>
+              </span>
             </div>
             <div className="col-xs-1 text-right cart-item-details">
               <button

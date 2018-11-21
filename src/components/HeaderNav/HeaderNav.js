@@ -17,14 +17,30 @@ class HeaderNav extends Component {
             <button
               className="header-navbar-btn navbar-right"
               onClick={this.props.showAddForm}
+              title="Add New Item"
             >
               <span className="glyphicon glyphicon-plus" />
             </button>
             <button
               className="header-navbar-btn navbar-right"
               onClick={this.props.loadCart}
+              title="Your Cart"
+              style={
+                this.props.cartNotif === 0
+                  ? { display: "none" }
+                  : { display: "block" }
+              }
             >
-              <span className="badge cart-notif">{this.props.cartNotif}</span>
+              <span
+                className="badge cart-notif"
+                style={
+                  this.props.cartNotif === 0
+                    ? { display: "none" }
+                    : { display: "block" }
+                }
+              >
+                {this.props.cartNotif}
+              </span>
               <span className="glyphicon glyphicon-shopping-cart" />
             </button>
 

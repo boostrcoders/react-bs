@@ -4,9 +4,12 @@
   padding: 10px 10px 10px 10px;
   text-align: center;
   font-family: arial;
-  /* float: left; */
   box-sizing: border-box;
-  height: 180px;
+  height: 190px;
+  transition: all 0.3s ease;
+}
+.item-card:hover {
+  transform: scale(1.03);
 }
 .item-card-edit {
   padding: 10px 0px 0px 0px;

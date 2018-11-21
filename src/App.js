@@ -145,7 +145,8 @@ class App extends Component {
     this.setState({
       products,
       cartItems: this.state.cartItems - 1,
-      cartTotalPrice: this.state.cartTotalPrice - temp_price
+      cartTotalPrice: this.state.cartTotalPrice - temp_price,
+      isLoadCart: this.state.cartItems === 1 ? false : true
     });
     localStorage.setItem("products", JSON.stringify(products));
     console.log(this.state.cartTotalPrice, temp_price);
