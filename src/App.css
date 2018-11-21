@@ -6,6 +6,12 @@ body {
   margin: 0;
   padding: 0;
 }
+h1 {
+  margin: 10px 5px;
+}
+#total-price {
+  float: right;
+}
 .products-container {
   text-align: center;
   padding: 0 20px;
