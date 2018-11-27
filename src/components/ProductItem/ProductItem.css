@@ -5,7 +5,7 @@
   text-align: center;
   font-family: arial;
   box-sizing: border-box;
-  height: 190px;
+  height: 185px;
   transition: all 0.3s ease;
 }
 .item-card:hover {
@@ -13,11 +13,10 @@
 }
 .item-card-edit {
   padding: 10px 0px 0px 0px;
-  background-color: #f1f1f1;
 }
 .item-card-inner,
 .item-card-edit {
-  background-color: #f1f1f1;
+  background-color: #eee;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
 .item-name {
@@ -25,7 +24,7 @@
   padding: 10px;
 }
 .price {
-  color: grey;
+  color: rgb(128, 128, 128);
   font-size: 22px;
   padding: 10px;
 }
@@ -53,12 +52,15 @@
 }
 
 .btn-edit-cart,
-.btn-delete-cart {
+.btn-delete-cart,
+.btn-favorite-cart {
   padding: 5px;
   font-size: 18px;
   color: rgba(0, 0, 0, 0.3);
 }
-
+.btn-favorite-cart:hover {
+  color: rgb(47, 184, 6);
+}
 .btn-edit-cart:hover {
   color: rgb(2, 140, 231);
 }
@@ -70,9 +72,10 @@
 }
 .cart-item {
   background-color: #ffffff;
-  border: 2px solid #5bc0de;
-  margin-bottom: 2px;
+  border: 1px solid #5bc0de;
+  margin: 2px 5px;
 }
+
 .cart-item-name {
   background-color: #5bc0de;
   color: #ffffff;
@@ -87,4 +90,12 @@
 .cart-item button {
   border: none;
   background-color: rgba(0, 0, 0, 0);
+}
+.cart-item-price {
+  color: rgb(128, 128, 128);
+}
+.cart-item-quantity {
+  background-color: #ffffff;
+  border: 1px solid #5bc0de;
+  color: #5bc0de;
 }

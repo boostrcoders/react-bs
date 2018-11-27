@@ -8,14 +8,19 @@ import "./App.css";
 if ("products" in localStorage) {
 } else {
   const products = [
-    { name: "iPad", price: 200, cart: [false, 0] },
-    { name: "iPhone", price: 650, cart: [false, 0] },
-    { name: "Cherry Mobile", price: "20", cart: [false, 0] },
-    { name: "Lenovo", price: "100", cart: [false, 0] },
-    { name: "Samsung", price: "250", cart: [false, 0] },
-    { name: "LG", price: "150", cart: [false, 0] },
-    { name: "ViVo", price: "80", cart: [false, 0] },
-    { name: "OPPO", price: "70", cart: [false, 0] }
+    { name: "iPad", price: 200, cart: [false, 0], favorite: [false, 0] },
+    { name: "iPhone", price: 650, cart: [false, 0], favorite: [false, 0] },
+    {
+      name: "Cherry Mobile",
+      price: "20",
+      cart: [false, 0],
+      favorite: [false, 0]
+    },
+    { name: "Lenovo", price: "100", cart: [false, 0], favorite: [false, 0] },
+    { name: "Samsung", price: "250", cart: [false, 0], favorite: [false, 0] },
+    { name: "LG", price: "150", cart: [false, 0], favorite: [false, 0] },
+    { name: "ViVo", price: "80", cart: [false, 0], favorite: [false, 0] },
+    { name: "OPPO", price: "70", cart: [false, 0], favorite: [false, 0] }
   ];
   localStorage.setItem("products", JSON.stringify(products));
 }
@@ -25,15 +30,19 @@ class App extends Component {
     products: JSON.parse(localStorage.getItem("products")),
     cartItems: 0,
     cartTotalPrice: 0,
+    favItems: 0,
+    favTotalPrice: 0,
     isEdit: [true, 1],
     isAdd: false,
-    isLoadCart: false
+    isLoadCart: false,
+    isLoadFav: false
   };
 
   componentWillMount() {
     const products = this.getProducts();
     this.setState({ products });
     this.checkStatusCartNotif();
+    this.checkFavStat();
   }
 
   getProducts() {
@@ -99,14 +108,14 @@ class App extends Component {
       }
       return products;
     });
-    console.log(this.state.cartTotalPrice);
   }
 
   //LOAD CART
   loadCart() {
     this.setState({
-      isLoadCart: !this.state.isLoadCart,
-      isAdd: false
+      isLoadCart: true,
+      isAdd: false,
+      isLoadFav: false
     });
   }
 
@@ -149,7 +158,6 @@ class App extends Component {
       isLoadCart: this.state.cartItems === 1 ? false : true
     });
     localStorage.setItem("products", JSON.stringify(products));
-    console.log(this.state.cartTotalPrice, temp_price);
   }
 
   //UPDATE CART QUANTITY ADD
@@ -188,39 +196,76 @@ class App extends Component {
     });
     localStorage.setItem("products", JSON.stringify(products));
   }
+  //LOAD Favorites
+  loadFav() {
+    this.setState({
+      isLoadFav: true,
+      isAdd: false,
+      isLoadCart: false
+    });
+    console.log(this.state.isLoadFav);
+  }
+  //STATUS FAVORITES
+  checkFavStat() {
+    let products = this.getProducts();
+    let count = 0;
+
+    products = products.map(product => {
+      if (product.favorite[0] === true) {
+        this.setState({
+          favItems: (count += 1)
+        });
+      }
+      return products;
+    });
+  }
+
+  // ADD ITEM TO FAVORITE LIST
+  addFavList(id) {
+    let products = this.getProducts();
+    let count = 0;
+    products = products.map((product, key) => {
+      if (key === id) {
+        product.favorite[0] = !product.favorite[0];
+        product.favorite[1] = product.favorite[0] ? 1 : 0;
+      }
+
+      if (product.favorite[0] === true) {
+        count += 1;
+      }
+
+      return product;
+    });
+    this.setState({
+      products,
+      favItems: count
+    });
+    localStorage.setItem("products", JSON.stringify(products));
+    console.log(this.state.favItems);
+  }
 
   render() {
-    let titleHeader = !this.state.isLoadCart ? "SHOPPING STORE" : "YOUR CART";
+    let titleHeader =
+      !this.state.isLoadCart && !this.state.isLoadFav
+        ? "SHOPPING STORE"
+        : !this.state.isLoadCart && this.state.isLoadFav
+        ? "Favorites"
+        : "YOUR CART";
     return (
       <div>
         <HeaderNav
           showAddForm={this.showAddForm.bind(this)}
           cartNotif={this.state.cartItems}
+          favItems={this.state.favItems}
+          isLoadCart={this.state.isLoadCart}
           loadCart={this.loadCart.bind(this)}
+          loadFav={this.loadFav.bind(this)}
         />
         <AddProduct
           onAdd={this.addProduct.bind(this)}
           isAdd={this.state.isAdd}
         />
-        <h1
-          style={
-            !this.state.isLoadCart
-              ? { textAlign: "center" }
-              : { textAlign: "left" }
-          }
-        >
-          {titleHeader}
-          <span
-            id="total-price"
-            style={
-              !this.state.isLoadCart
-                ? { display: "none" }
-                : { textAlign: "block" }
-            }
-          >
-            <i className="fas fa-dollar-sign"> {this.state.cartTotalPrice}</i>
-          </span>
-        </h1>
+        <h1>{titleHeader}</h1>
 
         <div className="products-container">
           {this.state.products.map((product, key) => {
@@ -228,11 +273,13 @@ class App extends Component {
               <ProductItem
                 isEdit={this.state.isEdit}
                 isLoadCart={this.state.isLoadCart}
+                isLoadFav={this.state.isLoadFav}
                 key={key}
                 id={key}
                 name={product.name}
                 price={product.price}
                 cart={product.cart}
+                fav={product.favorite}
                 onEdit={() => this.editProduct(product.name)}
                 onDelete={() => this.deleteProduct(key)}
                 editSubmit={this.onEditSubmit.bind(this)}
@@ -252,9 +299,26 @@ class App extends Component {
                   (this.subCartQuantity.bind(this),
                   () => this.subCartQuantity(key))
                 }
+                addFav={
+                  (this.subCartQuantity.bind(this), () => this.addFavList(key))
+                }
               />
             );
           })}
+          <h3
+            className="cart-below-note"
+            style={
+              !this.state.isLoadCart
+                ? { display: "none" }
+                : { display: "block" }
+            }
+          >
+            Total Price:
+            <span id="total-price">
+              &nbsp;
+              <i className="fas fa-dollar-sign"> {this.state.cartTotalPrice}</i>
+            </span>
+          </h3>
         </div>
       </div>
     );

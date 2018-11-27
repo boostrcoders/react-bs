@@ -7,44 +7,59 @@ class HeaderNav extends Component {
       <div className="header-navbar">
         <nav className="navbar navbar-inverse navbar-fixed-top">
           <div className="container-fluid">
-            <div className="navbar-header">
+            <div className="navbar-header col-xs-6">
               <a className="navbar-brand" href="/">
-                <span className="glyphicon glyphicon-usd" />
+                <i className="fas fa-dollar-sign" />
                 hopping
               </a>
             </div>
-
-            <button
-              className="header-navbar-btn navbar-right"
-              onClick={this.props.showAddForm}
-              title="Add New Item"
-            >
-              <span className="glyphicon glyphicon-plus" />
-            </button>
-            <button
-              className="header-navbar-btn navbar-right"
-              onClick={this.props.loadCart}
-              title="Your Cart"
-              style={
-                this.props.cartNotif === 0
-                  ? { display: "none" }
-                  : { display: "block" }
-              }
-            >
+            <div className="navbar-menu-icons col-xs-6">
               <span
-                className="badge cart-notif"
+                className="header-navbar-btn"
+                onClick={this.props.showAddForm}
+                title="Add New Item"
+              >
+                <i className="fas fa-plus" />
+              </span>
+              <span
+                className="header-navbar-btn"
+                onClick={this.props.loadFav}
+                title="Add New Item"
+                style={
+                  this.props.favItems === 0
+                    ? { display: "none" }
+                    : { display: "block" }
+                }
+              >
+                <i className="fas fa-heart" />
+              </span>
+
+              <span
+                className="header-navbar-btn"
+                onClick={this.props.loadCart}
+                title="Your Cart"
                 style={
                   this.props.cartNotif === 0
                     ? { display: "none" }
                     : { display: "block" }
                 }
               >
-                {this.props.cartNotif}
+                <span
+                  className="badge cart-notif"
+                  style={
+                    this.props.cartNotif !== 0 && this.props.isLoadCart
+                      ? { display: "none" }
+                      : this.props.cartNotif === 0
+                      ? { display: "none" }
+                      : { display: "block" }
+                  }
+                >
+                  {this.props.cartNotif}
+                </span>
+                <i className="fas fa-shopping-cart" />
               </span>
-              <span className="glyphicon glyphicon-shopping-cart" />
-            </button>
 
-            <form className="navbar-form navbar-left" action="/action_page.php">
+              {/* <form className="navbar-form navbar-left" action="/action_page.php">
               <div className="input-group">
                 <input
                   type="text"
@@ -54,11 +69,12 @@ class HeaderNav extends Component {
                 />
                 <div className="input-group-btn">
                   <button className="btn btn-default" type="submit">
-                    <i className="glyphicon glyphicon-search" />
+                    <i class="fas fa-search" />
                   </button>
                 </div>
               </div>
-            </form>
+            </form> */}
+            </div>
           </div>
         </nav>
       </div>

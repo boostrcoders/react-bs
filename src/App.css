@@ -7,12 +7,24 @@ body {
   padding: 0;
 }
 h1 {
-  margin: 10px 5px;
+  text-align: center;
+  margin: 20px auto;
+  border-bottom: 1px solid #cccccc;
+  color: #333333;
+  padding: 20px;
 }
-#total-price {
-  float: right;
+h3 {
+  margin: 10px 5px;
+  text-align: right;
 }
 .products-container {
   text-align: center;
   padding: 0 20px;
+}
+.cart-below-note {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+  padding: 10px;
+  color: #ffffff;
 }

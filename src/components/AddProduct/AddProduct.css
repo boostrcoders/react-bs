@@ -1,8 +1,7 @@
 .products-add-form {
-  margin-bottom: 30px;
-  padding: 20px;
+  padding: 20px 20px 20px 20px;
   text-align: center;
-  /* background-color: rgba(33, 33, 33, 0.6); */
+  background-color: rgba(33, 33, 33, 0.6);
 }
 
 .add-form {
