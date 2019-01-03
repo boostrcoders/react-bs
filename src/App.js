@@ -8,7 +8,7 @@ import "./App.css";
 if ("products" in localStorage) {
 } else {
   const products = [
-    { name: "iPad", price: 200, cart: [false, 0], favorite: [false, 0] },
+    { name: "iPad", price: 200, cart: [false, 0], favorite: [true, 1] },
     { name: "iPhone", price: 650, cart: [false, 0], favorite: [false, 0] },
     {
       name: "Cherry Mobile",
@@ -61,7 +61,8 @@ class App extends Component {
   addProduct(name, price) {
     const products = this.getProducts();
     const cart = [false, 0];
-    products.push({ name, price, cart });
+    const favorite = [false, 0];
+    products.push({ name, price, cart, favorite });
     this.setState({ products });
     localStorage.setItem("products", JSON.stringify(products));
   }
@@ -209,7 +210,6 @@ class App extends Component {
   checkFavStat() {
     let products = this.getProducts();
     let count = 0;
-
     products = products.map(product => {
       if (product.favorite[0] === true) {
         this.setState({

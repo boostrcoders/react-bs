@@ -8,7 +8,7 @@ class HeaderNav extends Component {
         <nav className="navbar navbar-inverse navbar-fixed-top">
           <div className="container-fluid">
             <div className="navbar-header col-xs-6">
-              <a className="navbar-brand" href="/">
+              <a className="navbar-brand" href="/react-crud">
                 <i className="fas fa-dollar-sign" />
                 hopping
               </a>
