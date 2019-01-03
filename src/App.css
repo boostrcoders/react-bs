@@ -8,7 +8,7 @@ body {
 }
 h1 {
   text-align: center;
-  margin: 20px auto;
+  margin: 0px auto 20px auto;
   border-bottom: 1px solid #cccccc;
   color: #333333;
   padding: 20px;
@@ -23,8 +23,8 @@ h3 {
 }
 .cart-below-note {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
   margin: 20px auto;
   padding: 10px;
-  color: #ffffff;
+  color: #333333;
 }

@@ -186,8 +186,8 @@ class App extends Component {
       if (key === id && product.cart[1] !== 1) {
         product.cart[1] -= 1;
         temp_price = parseInt(product.price);
-      } else if (key === id && product.cart[1] === 1) {
       }
+      //else if (key === id && product.cart[1] === 1) {}
       return product;
     });
     this.setState({
